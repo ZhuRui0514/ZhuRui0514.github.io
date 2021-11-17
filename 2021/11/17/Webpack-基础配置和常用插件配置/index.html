@@ -1,95 +1,159 @@
 <!DOCTYPE html>
-<html>
+<html lang="zh-CN">
 <head>
-  <meta charset="utf-8">
-  
-
-  
-  <title>Webpack_基础配置和常用插件配置 | 朱睿的个人博客</title>
-  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta name="description" content="我们成功安装了 webpack 并配置了自定义打包命令后，在项目中使用 webpack 前，当然需要对基础配置进行修改，并安装一些便于文件处理的插件，本篇主要对常用的简单配置进行描述，其他配置及插件安装见 webpack 官方文档。（https:&#x2F;&#x2F;webpack.docschina.org&#x2F;concepts&#x2F;） 1、基础配置修改使用 webpack 进行打包时，会根据项目根路径中的 webpac">
-<meta property="og:type" content="article">
-<meta property="og:title" content="Webpack_基础配置和常用插件配置">
-<meta property="og:url" content="http://example.com/2021/11/17/Webpack-%E5%9F%BA%E7%A1%80%E9%85%8D%E7%BD%AE%E5%92%8C%E5%B8%B8%E7%94%A8%E6%8F%92%E4%BB%B6%E9%85%8D%E7%BD%AE/index.html">
-<meta property="og:site_name" content="朱睿的个人博客">
-<meta property="og:description" content="我们成功安装了 webpack 并配置了自定义打包命令后，在项目中使用 webpack 前，当然需要对基础配置进行修改，并安装一些便于文件处理的插件，本篇主要对常用的简单配置进行描述，其他配置及插件安装见 webpack 官方文档。（https:&#x2F;&#x2F;webpack.docschina.org&#x2F;concepts&#x2F;） 1、基础配置修改使用 webpack 进行打包时，会根据项目根路径中的 webpac">
-<meta property="og:locale" content="zh_CN">
-<meta property="article:published_time" content="2021-11-17T12:12:05.000Z">
-<meta property="article:modified_time" content="2021-11-17T12:12:47.242Z">
-<meta property="article:author" content="朱睿">
-<meta property="article:tag" content="Web,前端,node,ES6,开发,程序员">
-<meta name="twitter:card" content="summary">
-  
-    <link rel="alternate" href="/atom.xml" title="朱睿的个人博客" type="application/atom+xml">
-  
-  
-    <link rel="icon" href="/favicon.png">
-  
-  
-    <link href="//fonts.googleapis.com/css?family=Source+Code+Pro" rel="stylesheet" type="text/css">
-  
-  
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    <meta name="keywords" content="Web,前端,node,ES6,开发,程序员">
+    <meta name="description" content="This man is too lazy.">
+    <meta name="author" content="Keep Team">
+    
+    <title>
+        
+            Webpack_基础配置和常用插件配置 |
+        
+        Keep Theme
+    </title>
+    
 <link rel="stylesheet" href="/css/style.css">
 
+    <link rel="shortcut icon" href="/images/logo.svg">
+    
+<link rel="stylesheet" href="/css/font-awesome.min.css">
+
+    <script id="hexo-configurations">
+    let KEEP = window.KEEP || {};
+    KEEP.hexo_config = {"hostname":"example.com","root":"/","language":"zh-CN"};
+    KEEP.theme_config = {"toc":{"enable":false,"number":false,"expand_all":false,"init_open":false},"style":{"primary_color":"#0066CC","avatar":"/images/avatar.svg","favicon":"/images/logo.svg","article_img_align":"left","left_side_width":"260px","content_max_width":"920px","hover":{"shadow":false,"scale":false},"first_screen":{"enable":false,"background_img":"/images/bg.svg","description":"Keep writing and Keep loving."},"scroll":{"progress_bar":{"enable":false},"percent":{"enable":false}}},"local_search":{"enable":false,"preload":false},"code_copy":{"enable":false,"style":"default"},"pjax":{"enable":false},"lazyload":{"enable":false},"version":"3.4.3"};
+    KEEP.language_ago = {"second":"%s 秒前","minute":"%s 分钟前","hour":"%s 小时前","day":"%s 天前","week":"%s 周前","month":"%s 月前","year":"%s 年前"};
+  </script>
 <meta name="generator" content="Hexo 5.4.0"></head>
 
-<body>
-  <div id="container">
-    <div id="wrap">
-      <header id="header">
-  <div id="banner"></div>
-  <div id="header-outer" class="outer">
-    <div id="header-title" class="inner">
-      <h1 id="logo-wrap">
-        <a href="/" id="logo">朱睿的个人博客</a>
-      </h1>
-      
-    </div>
-    <div id="header-inner" class="inner">
-      <nav id="main-nav">
-        <a id="main-nav-toggle" class="nav-icon"></a>
-        
-          <a class="main-nav-link" href="/">Home</a>
-        
-          <a class="main-nav-link" href="/archives">Archives</a>
-        
-      </nav>
-      <nav id="sub-nav">
-        
-          <a id="nav-rss-link" class="nav-icon" href="/atom.xml" title="RSS Feed"></a>
-        
-        <a id="nav-search-btn" class="nav-icon" title="搜索"></a>
-      </nav>
-      <div id="search-form-wrap">
-        <form action="//google.com/search" method="get" accept-charset="UTF-8" class="search-form"><input type="search" name="q" class="search-form-input" placeholder="Search"><button type="submit" class="search-form-submit">&#xF002;</button><input type="hidden" name="sitesearch" value="http://example.com"></form>
-      </div>
-    </div>
-  </div>
-</header>
-      <div class="outer">
-        <section id="main"><article id="post-Webpack-基础配置和常用插件配置" class="article article-type-post" itemscope itemprop="blogPost">
-  <div class="article-meta">
-    <a href="/2021/11/17/Webpack-%E5%9F%BA%E7%A1%80%E9%85%8D%E7%BD%AE%E5%92%8C%E5%B8%B8%E7%94%A8%E6%8F%92%E4%BB%B6%E9%85%8D%E7%BD%AE/" class="article-date">
-  <time datetime="2021-11-17T12:12:05.000Z" itemprop="datePublished">2021-11-17</time>
-</a>
-    
-  </div>
-  <div class="article-inner">
-    
-    
-      <header class="article-header">
-        
-  
-    <h1 class="article-title" itemprop="name">
-      Webpack_基础配置和常用插件配置
-    </h1>
-  
 
-      </header>
+<body>
+<div class="progress-bar-container">
     
-    <div class="article-entry" itemprop="articleBody">
-      
-        <p>我们成功安装了 webpack 并配置了自定义打包命令后，在项目中使用 webpack 前，当然需要对基础配置进行修改，并安装一些便于文件处理的插件，本篇主要对常用的简单配置进行描述，其他配置及插件安装见 webpack 官方文档。（<a target="_blank" rel="noopener" href="https://webpack.docschina.org/concepts/%EF%BC%89">https://webpack.docschina.org/concepts/）</a></p>
+
+    
+</div>
+
+
+<main class="page-container">
+
+    
+
+    <div class="page-main-content">
+
+        <div class="page-main-content-top">
+            <header class="header-wrapper">
+
+    <div class="header-content">
+        <div class="left">
+            
+            <a class="logo-title" href="/">
+                Keep Theme
+            </a>
+        </div>
+
+        <div class="right">
+            <div class="pc">
+                <ul class="menu-list">
+                    
+                        <li class="menu-item">
+                            <a class=""
+                               href="/"
+                            >
+                                首页
+                            </a>
+                        </li>
+                    
+                        <li class="menu-item">
+                            <a class=""
+                               href="/archives"
+                            >
+                                归档
+                            </a>
+                        </li>
+                    
+                    
+                </ul>
+            </div>
+            <div class="mobile">
+                
+                <div class="icon-item menu-bar">
+                    <div class="menu-bar-middle"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="header-drawer">
+        <ul class="drawer-menu-list">
+            
+                <li class="drawer-menu-item flex-center">
+                    <a class=""
+                       href="/">首页</a>
+                </li>
+            
+                <li class="drawer-menu-item flex-center">
+                    <a class=""
+                       href="/archives">归档</a>
+                </li>
+            
+        </ul>
+    </div>
+
+    <div class="window-mask"></div>
+
+</header>
+
+
+        </div>
+
+        <div class="page-main-content-middle">
+
+            <div class="main-content">
+
+                
+                    <div class="fade-in-down-animation">
+    <div class="article-content-container">
+
+        <div class="article-title">
+            <span class="title-hover-animation">Webpack_基础配置和常用插件配置</span>
+        </div>
+
+        
+            <div class="article-header">
+                <div class="avatar">
+                    <img src="/images/avatar.svg">
+                </div>
+                <div class="info">
+                    <div class="author">
+                        <span class="name">Keep Team</span>
+                        
+                            <span class="author-label">Lv1</span>
+                        
+                    </div>
+                    <div class="meta-info">
+                        <div class="article-meta-info">
+    <span class="article-date article-meta-item">
+        <i class="fas fa-edit"></i>&nbsp;2021-11-17 20:12:05
+    </span>
+    
+    
+
+    
+    
+    
+    
+</div>
+
+                    </div>
+                </div>
+            </div>
+        
+
+        <div class="article-content markdown-body">
+            <p>我们成功安装了 webpack 并配置了自定义打包命令后，在项目中使用 webpack 前，当然需要对基础配置进行修改，并安装一些便于文件处理的插件，本篇主要对常用的简单配置进行描述，其他配置及插件安装见 webpack 官方文档。（<a target="_blank" rel="noopener" href="https://webpack.docschina.org/concepts/%EF%BC%89">https://webpack.docschina.org/concepts/）</a></p>
 <h2 id="1、基础配置修改"><a href="#1、基础配置修改" class="headerlink" title="1、基础配置修改"></a>1、基础配置修改</h2><p>使用 webpack 进行打包时，会根据项目根路径中的 webpack.config.js 文件中设置的配置参数，找到默认入口 （根路径中的 src/index.js），根据其中的依赖关系进行打包，并输出在默认出口（根路径中生成 dist/main.js）。</p>
 <p>而在正式项目中，如果需要对入口、出口路径进行修改：</p>
 <figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//在根路径中的 webpack.config.js 中书写</span></span><br><span class="line"><span class="keyword">const</span> path = <span class="built_in">require</span>(<span class="string">&quot;path&quot;</span>)</span><br><span class="line"></span><br><span class="line"><span class="built_in">module</span>.exports = &#123;</span><br><span class="line">    <span class="attr">entry</span>: <span class="string">&quot; 入口文件路径 &quot;</span>, </span><br><span class="line">    <span class="attr">output</span>: &#123; </span><br><span class="line">        <span class="attr">path</span>: <span class="string">&quot; 出口文件夹路径 &quot;</span></span><br><span class="line">        <span class="attr">filename</span>:<span class="string">&quot; 出口文件名 &quot;</span></span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
@@ -163,109 +227,157 @@
 
 <p><strong>注意：合理地利用官方文档中提供的不同插件可以解决许多我们使用时所遇到的问题！</strong></p>
 
-      
+        </div>
+
+        
+
+        
+            <div class="article-nav">
+                
+                
+                    <div class="article-next">
+                        <a class="next"
+                           rel="next"
+                           href="/2021/11/17/Webpack-%E5%9F%BA%E7%A1%80%E4%BD%BF%E7%94%A8/"
+                        >
+                            <span class="title flex-center">
+                                <span class="post-nav-title-item">Webpack_基础使用</span>
+                                <span class="post-nav-item">下一篇</span>
+                            </span>
+                            <span class="right arrow-icon flex-center">
+                              <i class="fas fa-chevron-right"></i>
+                            </span>
+                        </a>
+                    </div>
+                
+            </div>
+        
+
+        
     </div>
-    <footer class="article-footer">
-      <a data-url="http://example.com/2021/11/17/Webpack-%E5%9F%BA%E7%A1%80%E9%85%8D%E7%BD%AE%E5%92%8C%E5%B8%B8%E7%94%A8%E6%8F%92%E4%BB%B6%E9%85%8D%E7%BD%AE/" data-id="ckw3hjhz00000pkwsfzq71td6" class="article-share-link">Share</a>
-      
-      
-    </footer>
-  </div>
-  
-    
-<nav id="article-nav">
-  
-  
-    <a href="/2021/11/17/Webpack-%E5%9F%BA%E7%A1%80%E4%BD%BF%E7%94%A8/" id="article-nav-older" class="article-nav-link-wrap">
-      <strong class="article-nav-caption">Older</strong>
-      <div class="article-nav-title">Webpack_基础使用</div>
-    </a>
-  
-</nav>
+</div>
 
-  
-</article>
 
-</section>
+                
+            </div>
+
+        </div>
+
+        <div class="page-main-content-bottom">
+            <footer class="footer">
+    <div class="info-container">
+        <div class="copyright-info info-item">
+            &copy;
+            
+              <span>2020</span>&nbsp;-&nbsp;
+            
+            2021&nbsp;<i class="fas fa-heart icon-animate"></i>&nbsp;<a href="/">Keep Team</a>
+        </div>
         
-          <aside id="sidebar">
-  
-    
-
-  
-    
-
-  
-    
-  
-    
-  <div class="widget-wrap">
-    <h3 class="widget-title">归档</h3>
-    <div class="widget">
-      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2021/11/">十一月 2021</a></li></ul>
+        <div class="theme-info info-item">
+            由 <a target="_blank" href="https://hexo.io">Hexo</a> 驱动&nbsp;|&nbsp;主题&nbsp;<a class="theme-version" target="_blank" href="https://github.com/XPoet/hexo-theme-keep">Keep v3.4.3</a>
+        </div>
+        
     </div>
-  </div>
-
-
-  
-    
-  <div class="widget-wrap">
-    <h3 class="widget-title">最新文章</h3>
-    <div class="widget">
-      <ul>
-        
-          <li>
-            <a href="/2021/11/17/Webpack-%E5%9F%BA%E7%A1%80%E9%85%8D%E7%BD%AE%E5%92%8C%E5%B8%B8%E7%94%A8%E6%8F%92%E4%BB%B6%E9%85%8D%E7%BD%AE/">Webpack_基础配置和常用插件配置</a>
-          </li>
-        
-          <li>
-            <a href="/2021/11/17/Webpack-%E5%9F%BA%E7%A1%80%E4%BD%BF%E7%94%A8/">Webpack_基础使用</a>
-          </li>
-        
-      </ul>
-    </div>
-  </div>
-
-  
-</aside>
-        
-      </div>
-      <footer id="footer">
-  
-  <div class="outer">
-    <div id="footer-info" class="inner">
-      &copy; 2021 朱睿<br>
-      Powered by <a href="http://hexo.io/" target="_blank">Hexo</a>
-    </div>
-  </div>
 </footer>
+
+        </div>
     </div>
-    <nav id="mobile-nav">
-  
-    <a href="/" class="mobile-nav-link">Home</a>
-  
-    <a href="/archives" class="mobile-nav-link">Archives</a>
-  
-</nav>
+
+    
+        <div class="post-tools">
+            <div class="post-tools-container">
+    <ul class="tools-list">
+        <!-- TOC aside toggle -->
+        
+
+        <!-- go comment -->
+        
+    </ul>
+</div>
+
+        </div>
     
 
-<script src="//ajax.googleapis.com/ajax/libs/jquery/2.0.3/jquery.min.js"></script>
+    <div class="right-bottom-side-tools">
+        <div class="side-tools-container">
+    <ul class="side-tools-list">
+        <li class="tools-item tool-font-adjust-plus flex-center">
+            <i class="fas fa-search-plus"></i>
+        </li>
+
+        <li class="tools-item tool-font-adjust-minus flex-center">
+            <i class="fas fa-search-minus"></i>
+        </li>
+
+        <li class="tools-item tool-expand-width flex-center">
+            <i class="fas fa-arrows-alt-h"></i>
+        </li>
+
+        <li class="tools-item tool-dark-light-toggle flex-center">
+            <i class="fas fa-moon"></i>
+        </li>
+
+        <!-- rss -->
+        
+
+        
+            <li class="tools-item tool-scroll-to-top flex-center">
+                <i class="fas fa-arrow-up"></i>
+            </li>
+        
+
+        <li class="tools-item tool-scroll-to-bottom flex-center">
+            <i class="fas fa-arrow-down"></i>
+        </li>
+    </ul>
+
+    <ul class="exposed-tools-list">
+        <li class="tools-item tool-toggle-show flex-center">
+            <i class="fas fa-cog fa-spin"></i>
+        </li>
+        
+    </ul>
+</div>
+
+    </div>
+
+    
+
+    <div class="image-viewer-container">
+    <img src="">
+</div>
 
 
-  
-<link rel="stylesheet" href="/fancybox/jquery.fancybox.css">
+    
 
-  
-<script src="/fancybox/jquery.fancybox.pack.js"></script>
+</main>
 
 
 
 
-<script src="/js/script.js"></script>
+<script src="/js/utils.js"></script>
+
+<script src="/js/main.js"></script>
+
+<script src="/js/header-shrink.js"></script>
+
+<script src="/js/back2top.js"></script>
+
+<script src="/js/dark-light-toggle.js"></script>
 
 
 
 
-  </div>
+
+
+
+
+<div class="post-scripts">
+    
+</div>
+
+
+
 </body>
 </html>
