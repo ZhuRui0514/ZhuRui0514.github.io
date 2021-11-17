@@ -1,0 +1,253 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  
+
+  
+  <title>Webpack_基础使用 | 朱睿的个人博客</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <meta name="description" content="1、什么是Webpack？本质上，Webpack是一个静态模块打包工具。 2、为什么要使用Webpack？ 在开发中，我们常常会遇到：   使用sass和less语法书写样式需要转译  使用es6及更高版本的语法来简化代码,浏览器无法识别  项目体积大,不利于上线  webpack就可以解决上述问题：   支持所有类型文件的打包  支持less&#x2F;sass &#x3D;&gt; css  支持ES6&#x2F;7&#x2F;8">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Webpack_基础使用">
+<meta property="og:url" content="http://example.com/2021/11/17/Webpack-%E5%9F%BA%E7%A1%80%E4%BD%BF%E7%94%A8/index.html">
+<meta property="og:site_name" content="朱睿的个人博客">
+<meta property="og:description" content="1、什么是Webpack？本质上，Webpack是一个静态模块打包工具。 2、为什么要使用Webpack？ 在开发中，我们常常会遇到：   使用sass和less语法书写样式需要转译  使用es6及更高版本的语法来简化代码,浏览器无法识别  项目体积大,不利于上线  webpack就可以解决上述问题：   支持所有类型文件的打包  支持less&#x2F;sass &#x3D;&gt; css  支持ES6&#x2F;7&#x2F;8">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://p1-juejin.byteimg.com/tos-cn-i-k3u1fbpfcp/3f0f34f2ea6842d7b3c8ead98250860c~tplv-k3u1fbpfcp-watermark.image">
+<meta property="og:image" content="https://p1-juejin.byteimg.com/tos-cn-i-k3u1fbpfcp/40ea8ac66bfa4561a674bbea0334f968~tplv-k3u1fbpfcp-watermark.image">
+<meta property="article:published_time" content="2021-11-17T11:51:24.000Z">
+<meta property="article:modified_time" content="2021-11-17T12:10:04.650Z">
+<meta property="article:author" content="朱睿">
+<meta property="article:tag" content="Web,前端,node,ES6,开发,程序员">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://p1-juejin.byteimg.com/tos-cn-i-k3u1fbpfcp/3f0f34f2ea6842d7b3c8ead98250860c~tplv-k3u1fbpfcp-watermark.image">
+  
+    <link rel="alternate" href="/atom.xml" title="朱睿的个人博客" type="application/atom+xml">
+  
+  
+    <link rel="icon" href="/favicon.png">
+  
+  
+    <link href="//fonts.googleapis.com/css?family=Source+Code+Pro" rel="stylesheet" type="text/css">
+  
+  
+<link rel="stylesheet" href="/css/style.css">
+
+<meta name="generator" content="Hexo 5.4.0"></head>
+
+<body>
+  <div id="container">
+    <div id="wrap">
+      <header id="header">
+  <div id="banner"></div>
+  <div id="header-outer" class="outer">
+    <div id="header-title" class="inner">
+      <h1 id="logo-wrap">
+        <a href="/" id="logo">朱睿的个人博客</a>
+      </h1>
+      
+    </div>
+    <div id="header-inner" class="inner">
+      <nav id="main-nav">
+        <a id="main-nav-toggle" class="nav-icon"></a>
+        
+          <a class="main-nav-link" href="/">Home</a>
+        
+          <a class="main-nav-link" href="/archives">Archives</a>
+        
+      </nav>
+      <nav id="sub-nav">
+        
+          <a id="nav-rss-link" class="nav-icon" href="/atom.xml" title="RSS Feed"></a>
+        
+        <a id="nav-search-btn" class="nav-icon" title="搜索"></a>
+      </nav>
+      <div id="search-form-wrap">
+        <form action="//google.com/search" method="get" accept-charset="UTF-8" class="search-form"><input type="search" name="q" class="search-form-input" placeholder="Search"><button type="submit" class="search-form-submit">&#xF002;</button><input type="hidden" name="sitesearch" value="http://example.com"></form>
+      </div>
+    </div>
+  </div>
+</header>
+      <div class="outer">
+        <section id="main"><article id="post-Webpack-基础使用" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2021/11/17/Webpack-%E5%9F%BA%E7%A1%80%E4%BD%BF%E7%94%A8/" class="article-date">
+  <time datetime="2021-11-17T11:51:24.000Z" itemprop="datePublished">2021-11-17</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 class="article-title" itemprop="name">
+      Webpack_基础使用
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h2 id="1、什么是Webpack？"><a href="#1、什么是Webpack？" class="headerlink" title="1、什么是Webpack？"></a>1、什么是Webpack？</h2><p>本质上，Webpack是一个<strong>静态模块打包工具</strong>。</p>
+<h2 id="2、为什么要使用Webpack？"><a href="#2、为什么要使用Webpack？" class="headerlink" title="2、为什么要使用Webpack？"></a>2、为什么要使用Webpack？</h2><p><img src="https://p1-juejin.byteimg.com/tos-cn-i-k3u1fbpfcp/3f0f34f2ea6842d7b3c8ead98250860c~tplv-k3u1fbpfcp-watermark.image" alt="1636790685154.png"></p>
+<p>在开发中，我们常常会遇到：</p>
+<ul>
+<li> 使用sass和less语法书写样式需要转译</li>
+<li> 使用es6及更高版本的语法来简化代码,浏览器无法识别</li>
+<li> 项目体积大,不利于上线</li>
+</ul>
+<p>webpack就可以解决上述问题：</p>
+<ul>
+<li> 支持所有类型文件的打包</li>
+<li> 支持less/sass =&gt; css</li>
+<li> 支持ES6/7/8 =&gt; ES5</li>
+<li> 压缩代码, 提高加载速度</li>
+</ul>
+<p>由此可见，webpack就是前端开发人员技术库中的必需品！</p>
+<h2 id="3、Webpack的使用"><a href="#3、Webpack的使用" class="headerlink" title="3、Webpack的使用"></a>3、Webpack的使用</h2><p>在使用前请安装node环境（详情见Node.js官网： <a target="_blank" rel="noopener" href="https://nodejs.org/">https://nodejs.org/</a> ）</p>
+<h3 id="3-1、下载yarn包管理器"><a href="#3-1、下载yarn包管理器" class="headerlink" title="3.1、下载yarn包管理器"></a>3.1、下载yarn包管理器</h3><p>中文官网地址： <a target="_blank" rel="noopener" href="https://yarn.bootcss.com/">https://yarn.bootcss.com/</a></p>
+<p>下载地址： <a target="_blank" rel="noopener" href="https://yarn.bootcss.com/docs/install/#windows-stable">https://yarn.bootcss.com/docs/install/#windows-stable</a></p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">npm i -g yarn </span><br></pre></td></tr></table></figure>
+
+<h3 id="3-2、Webpack的安装"><a href="#3-2、Webpack的安装" class="headerlink" title="3.2、Webpack的安装"></a>3.2、Webpack的安装</h3><p> 1.创建项目文件夹</p>
+<p> 2.在项目文件夹内初始化包环境</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">yarn init -y </span><br></pre></td></tr></table></figure>
+
+<p> 3.安装 webpack 依赖包</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">yarn add webpack webpack-cli -D</span><br></pre></td></tr></table></figure>
+<p> 4.在 package.json 中, 配置 scripts 自定义打包命令</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">scripts: &#123;</span><br><span class="line">	&quot;build&quot;: &quot;webpack&quot;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h3 id="3-3、Webpack的简单使用"><a href="#3-3、Webpack的简单使用" class="headerlink" title="3.3、Webpack的简单使用"></a>3.3、Webpack的简单使用</h3><p> 1.新建 src/js.js ，写入并导出需要打包的代码，例如：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">export const add = (a, b) =&gt; a + b</span><br></pre></td></tr></table></figure>
+
+<p> 2.新建 src/index.js 导入使用</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">// webpack打包的入口</span><br><span class="line">import &#123; add &#125; from &#x27;./js&#x27;</span><br><span class="line">console.log(add(2, 3));</span><br></pre></td></tr></table></figure>
+
+<p> 3.运行自定义打包命令</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">yarn build</span><br></pre></td></tr></table></figure>
+
+<h3 id="3-4、效果"><a href="#3-4、效果" class="headerlink" title="3.4、效果"></a>3.4、效果</h3><p>生成 dist 目录（与src文件夹同级）和其中的 main.js 文件</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">(()=&gt;&#123;&quot;use strict&quot;;console.log(5)&#125;)();</span><br></pre></td></tr></table></figure>
+<h2 id="4、Webpack打包流程"><a href="#4、Webpack打包流程" class="headerlink" title="4、Webpack打包流程"></a>4、Webpack打包流程</h2><p><img src="https://p1-juejin.byteimg.com/tos-cn-i-k3u1fbpfcp/40ea8ac66bfa4561a674bbea0334f968~tplv-k3u1fbpfcp-watermark.image" alt="image-20210421125257233.png"></p>
+<ul>
+<li>  执行局部webpack命令(前提项目中下载了webpack包)</li>
+<li>  有webpack.config.js用于读取, 否则用内置默认</li>
+<li>  根据入口建立引入关系</li>
+<li>  编译翻译整合打包输出到指定位置</li>
+</ul>
+<p>  <strong>注意：模块文件要和webpack入口产生直接或间接引入关系才能进行打包！</strong></p>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://example.com/2021/11/17/Webpack-%E5%9F%BA%E7%A1%80%E4%BD%BF%E7%94%A8/" data-id="ckw3gs4qx0000awws6ikw5pez" class="article-share-link">Share</a>
+      
+      
+    </footer>
+  </div>
+  
+    
+<nav id="article-nav">
+  
+    <a href="/2021/11/17/Webpack-%E5%9F%BA%E7%A1%80%E9%85%8D%E7%BD%AE%E5%92%8C%E5%B8%B8%E7%94%A8%E6%8F%92%E4%BB%B6%E9%85%8D%E7%BD%AE/" id="article-nav-newer" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Newer</strong>
+      <div class="article-nav-title">
+        
+          Webpack_基础配置和常用插件配置
+        
+      </div>
+    </a>
+  
+  
+</nav>
+
+  
+</article>
+
+</section>
+        
+          <aside id="sidebar">
+  
+    
+
+  
+    
+
+  
+    
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">归档</h3>
+    <div class="widget">
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2021/11/">十一月 2021</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">最新文章</h3>
+    <div class="widget">
+      <ul>
+        
+          <li>
+            <a href="/2021/11/17/Webpack-%E5%9F%BA%E7%A1%80%E9%85%8D%E7%BD%AE%E5%92%8C%E5%B8%B8%E7%94%A8%E6%8F%92%E4%BB%B6%E9%85%8D%E7%BD%AE/">Webpack_基础配置和常用插件配置</a>
+          </li>
+        
+          <li>
+            <a href="/2021/11/17/Webpack-%E5%9F%BA%E7%A1%80%E4%BD%BF%E7%94%A8/">Webpack_基础使用</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+
+  
+</aside>
+        
+      </div>
+      <footer id="footer">
+  
+  <div class="outer">
+    <div id="footer-info" class="inner">
+      &copy; 2021 朱睿<br>
+      Powered by <a href="http://hexo.io/" target="_blank">Hexo</a>
+    </div>
+  </div>
+</footer>
+    </div>
+    <nav id="mobile-nav">
+  
+    <a href="/" class="mobile-nav-link">Home</a>
+  
+    <a href="/archives" class="mobile-nav-link">Archives</a>
+  
+</nav>
+    
+
+<script src="//ajax.googleapis.com/ajax/libs/jquery/2.0.3/jquery.min.js"></script>
+
+
+  
+<link rel="stylesheet" href="/fancybox/jquery.fancybox.css">
+
+  
+<script src="/fancybox/jquery.fancybox.pack.js"></script>
+
+
+
+
+<script src="/js/script.js"></script>
+
+
+
+
+  </div>
+</body>
+</html>
